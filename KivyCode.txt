@@ -1,0 +1,201 @@
+#:import webbrowser webbrowser
+
+WindowManager:
+   MainWindow:
+   Registration:
+   Login:
+   SecondWindow:
+   ThirdWindow:
+   FourthWindow:
+
+<MainWindow>:
+
+   name: "main"
+
+   GridLayout:
+      cols:1
+
+      Label:
+         font_name: 'Arial'
+         font_size: 30
+         text: "Welcome to EarthQuest "
+
+      GridLayout:
+         cols:2
+
+         Button:
+            background_color: (0,1,0,1)
+            size_hint: 0.6,0.1
+            pos_hint: {"x":0.5, "bottom":1}
+            text: "Login"
+            on_press:
+               root.btn ()
+               app.root.current="login"
+
+      Button:
+         background_color: (0,1,0,1)
+         text: "Don't have a User? Register Here"
+         on_press:
+            root.btn ()
+         on_release:
+            app.root.current="registration"
+
+<Registration>:
+   name: "registration"
+   username: username
+   password: password
+
+   GridLayout:
+      cols: 2
+
+      Label:
+         font_name: 'Arial'
+         size_hint: 0.6,0.1
+         pos_hint: {"x":1, "top":0.1}
+         text: "Username: "
+
+      TextInput:
+         id: username
+         size_hint: 0.6,0.1
+         multiline: False
+
+      Label:
+         font_name: 'Arial'
+         size_hint: 0.6,0.1
+         pos_hint: {"x":1, "y":0.1}
+         text: "Password: "
+
+      TextInput:
+         id: password
+         size_hint: 0.6,0.1
+         multiline: False
+
+      Button:
+         background_color: (0,1,0,1)
+         size_hint: 0.6,0.1
+         pos_hint: {"x":0.5, "bottom":1}
+         text: "Register"
+         on_press:
+            root.btn ()
+            app.root.current="main"
+
+<Login>:
+   name: "login"
+   username: username
+   password: password
+
+   GridLayout:
+      cols: 2
+
+      Label:
+         font_name: 'Arial'
+         size_hint: 0.6,0.1
+         pos_hint: {"x":1, "top":0.1}
+         text: "Username: "
+
+      TextInput:
+         id: username
+         size_hint: 0.6,0.1
+         multiline: False
+
+      Label:
+         font_name: 'Arial'
+         size_hint: 0.6,0.1
+         pos_hint: {"x":1, "y":0.1}
+         text: "Password: "
+
+      TextInput:
+         id: password
+         size_hint: 0.6,0.1
+         multiline: False
+
+      Button:
+         background_color: (0,1,0,1)
+         size_hint: 0.6,0.1
+         pos_hint: {"x":0.5, "bottom":1}
+         text: "Login"
+         on_press:
+            root.btn ()
+
+<SecondWindow>:
+   name: "second"
+   GridLayout:
+
+      cols:1
+      Button:
+         background_color: (0.65,0.5,0.35,1)
+         text: "Rules"
+         on_release:
+            webbrowser.open ("https://docs.google.com/document/d/14AFJKLjzIi7aNLk3Ha9Xi5CenjapeTvJWaU1RDsc_Co/edit")
+
+      Button:
+         background_color: (0,0.5,0,1)
+         text: "Game Description"
+         on_release:
+            webbrowser.open ("https://docs.google.com/document/d/1dxJ_uf5RGEWqDSpaDX7eimr6SEViRA8v6-O68nrclnw/edit")
+
+      Button:
+         background_color: (0,0.5,0.5,1)
+         text: "Start Game"
+         on_release:
+            app.root.current="third"
+
+<ThirdWindow>:
+   name: "third"
+   character:character
+
+   GridLayout:
+
+      cols:1
+      Label:
+         text: "Welcome to the Game"
+
+      Label:
+         text: "Type your Character Name: "
+
+      TextInput:
+         id: character
+         multiline: False
+
+      Button:
+         background_color: (0.65,0.5,0.35,1)
+         text: "Submit Character"
+         on_press:
+            root.btn2 ()
+            root.btn ()
+
+
+      Button:
+         background_color: (0,0.5,0,1)
+         text: "Go to first story!"
+         on_release:
+            app.root.current="fourth"
+
+      Button:
+         background_color: (0,0.5,0.5,1)
+         #size: 200,200
+         #size_hint: None, None # <---
+         text: "Return to Main Window"
+         on_release:
+            app.root.current="second"
+
+<FourthWindow>:
+   name: "fourth"
+   Button:
+      text: "Go to Map"
+      on_release:
+         root.btn3 ()
+         webbrowser.open ("https://www.google.com/maps")
+
+<P>:
+   Button:
+      text: "Click Here!"
+      on_release: webbrowser.open ("https://hangouts.google.com/group/HPuBGx73b3uEoH2X7")
+      size_hint: 0.8, 0.2
+      pos_hint: {"x":0.1, "y":0.1}
+
+
+<P2>:
+   Label:
+      pos_hint: {"x":0.1, "y":0.1}
+      text: "In 2005, Hurricane Katrina caused \nsignificant destruction in the United States. \nFind New Orleans on the map."
