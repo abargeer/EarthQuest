@@ -1,0 +1,113 @@
+import kivy
+import webbrowser
+
+from kivy.app import App
+from kivy.uix.label import Label
+from kivy.uix.gridlayout import GridLayout
+from kivy.uix.textinput import TextInput
+from kivy.uix.button import Button
+from kivy.uix.widget import Widget
+from kivy.base import runTouchApp
+from kivy.lang import Builder
+from kivy.properties import ObjectProperty
+from kivy.lang import builder
+from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.screenmanager import Screen
+
+from kivymd.app import MDApp
+from kivymd.uix.button import MDRectangleFlatButton
+from kivy.uix.popup import Popup
+from kivy.uix.floatlayout import FloatLayout
+import csv
+
+class MainWindow (Screen):
+   fullname=ObjectProperty (None)
+
+   def btn (self):
+       Registration()
+
+class Registration(Screen):
+    username = ObjectProperty(None)
+    password = ObjectProperty(None)
+
+    def btn(self):
+        print(self.username.text, self.password.text)
+        csv_registration(self.username.text, self.password.text)
+
+class Login(Screen):
+    username = ObjectProperty(None)
+    password = ObjectProperty(None)
+
+    def btn(self):
+        verify_login(self.username.text, self.password.text)
+        print("Succesfful Login")
+        SecondWindow()
+
+class SecondWindow (Screen):
+   pass
+
+class ThirdWindow (Screen):
+   def btn (self):
+       show_popup()
+   def btn2 (self):
+       print ("Character: ", self.character.text)
+
+class FourthWindow (Screen):
+   def btn3 (self):
+       show_popup2()
+
+class WindowManager (ScreenManager):
+   pass
+
+class P (FloatLayout):
+   pass
+
+class P2 (FloatLayout):
+   pass
+
+kv=Builder.load_file ("my.kv")
+
+class MyMainApp (App):
+   def build (self):
+       return kv
+
+def show_popup ():
+   show=P()
+   popupWindow=Popup (title="Chat", content=show, size_hint=(None, None), size= (400,400))
+   popupWindow.open ()
+
+def show_popup2 ():
+   show=P2()
+   popupWindow=Popup (title="Chat", content=show, size_hint=(None, None), size= (400,400))
+   popupWindow.open ()
+
+
+def csv_registration(username, password):
+
+    with open('credentials.csv', mode = 'w') as credentials:
+        credentials_writer = csv.writer(credentials, delimiter = ',')
+
+        credentials_writer.writerow([username, password])
+
+    return
+
+def verify_login(username, password):
+    login = False
+    with open('credentials.csv', 'r') as credentials:
+        credentials_reader = csv.reader(credentials)
+
+        for row in credentials_reader:
+            if row[0]== username and row[1] == password:
+                login = True
+                break
+            else:
+                login = False
+                break
+
+    if login==True:
+        return
+    if login==False:
+        print("Incorrest Username or Password")
+
+if __name__=="__main__":
+   MyMainApp().run()
